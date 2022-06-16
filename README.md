@@ -1,64 +1,128 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Model Design
+## User
+```
+- id
+- name
+- email
+- password
+```
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## FriendRequest
+```
+- id
+- user_id
+- user_email
+- requestor_id
+- requestor_email
+- status
+```
 
-## About Laravel
+## Friend
+```
+- id
+- user_id
+- user_email
+- friend_id
+- friend_email
+```
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Steps to Create Laravel Project using Docker
+In this case, I am using Manjaro Linux.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 1. Docker
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. Install Docker `sudo pacman -S docker`
+2. Start Docker: `sudo systemctl start docker.service` &rarr; `sudo systemctl enable docker.service`
+3. Check Docker status: `sudo systemctl status docker.service` (active)
+4. Setup to run docker without sudo: `sudo groupadd docker` &rarr; `sudo usermod -aG docker $USER` &rarr; `sudo chmod 666 /var/run/docker.sock`
 
-## Learning Laravel
+## 2. Docker Compose
+1. Install: `yay -S docker-compose`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 3. LazyDocker
+GUI for monitoring the Docker
+1. Install: `yay -S lazydocker`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 4. PHP
+1. Install: `sudo pacman -S php php-fpm php-apcu php-gd php-imap php-intl php-mcrypt php-memcached php-pgsql php-sqlite php-cgi xdebug`
 
-## Laravel Sponsors
+## 5. MariaDB/MySQL
+1. Install: `sudo pacman -S mariadb`
+2. Initialize: `sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## 6. Composer
+1. Install Composer: `sudo pacman -S composer`
+2. Make global env: `composer global require "laravel/installer"`
+3. Add new row to `.zshrc` &rarr; `export PATH="$HOME/.config/composer/vendor/bin:$PATH"`
+4. Run: `source ~/.zshrc`
 
-### Premium Partners
+## 7. Laravel
+### Installation
+1. Create Laravel project: `laravel new <app_name>`
+2. Initialize Laravel Sail to the project: `composer require laravel/sail --dev` \
+   Laravel Sail is a light-weight command-line interface for interacting with Laravel's default Docker development environment.
+3. Run command: `php artisan sail:install`
+4. Start sail: `./vendor/bin/sail up`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Laravel Sail
+In Laravel, we can execute `artisan` commands.
+1. Migrate default laravel tables
+    ```
+    sail artisan migrate
+    ```
 
-## Contributing
+2. Create models and migrations
+    ```
+    sail artisan make:model ModelName -m
+    // -m &rarr; to make migration
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. Create controllers
+    ```
+    sail artisan make:controller
+    ```
 
-## Code of Conduct
+# Manual Test
+For manual testing, we can use `Postman`, to test whether our application can run as expected.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+# Laravel Automated Testing
+For automated testing, we can use laravel artisan unit test feature. By using `Laravel Sail`, we can run the test within docker containers. \
+Do the following command to run the test:
+```
+sail artisan test
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+For this case, I have created many test cases as followed:
 
-## License
+## 1. User Friend Request
+The case here, I have created dummy users to work with, so the whole database will not be disturbed. The dummy users are `dummy@gmail.com (first user)` and `user@gmail.com (second user)`. Both users will be used on most of the cases. In the first case, the second user has successfully made a friend request to the first user. If the request has been made before, the program will delete it first before continue.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 2. Accept Friend Request
+In the second case, the first user has successfully accepted the request made by the second user.
+
+## 3. Reject Friend Request
+Since the first user has accepted the request, in the third case, the program needs to reset the request status to `pending`. Therefore, it can run the case. The first user has successfully rejected the request.
+
+## 4. Show All Friend Request
+Showing all of the user's friend requests. The fourth case has successfully passed.
+
+## 5. Show All User's Friend Lists
+Showing all of the user's friend lists. The fifth case has successfully passed.
+
+## 6. Show Common Friends
+In this case, I used the real data from the database. Because the data have been specified in the best way to run the test. The sixth case has successfully passed.
+
+## 7. Block a User
+The final case is to block the user. In this case, I have decided to add a new column to the `users` table called `blocked`, which is for storing the email of someone who blocked the user. Once the user blocked, they cannot send friend request to the requestor. The row containing the relation between both of the users also deleted from the database. The final case has successfully passed.
+
+## Screenshots
+
+## Postman
+
+![Postman Preview](/resources/img/Postman%20Preview.png)
+
+## Testing Result
+
+![Testing](/resources/img/Testing.png)
