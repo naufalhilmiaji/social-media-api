@@ -58,29 +58,38 @@ class FriendRequestController extends Controller
      */
     public function acceptFriendRequest(Request $request, $id)
     {
-        try {
-            Friend::firstOrCreate([
-                'user_id' => $request->requestor_id,
-                'friend_id' => $request->user_id,
-                'user_email' => $request->requestor_email,
-                'friend_email' => $request->user_email,
-            ]);
+        // try {
+            // Friend::firstOrCreate([
+            //     'user_id' => $request->requestor_id,
+            //     'friend_id' => $request->user_id,
+            //     'user_email' => $request->requestor_email,
+            //     'friend_email' => $request->user_email,
+            // ]);
 
             $friendRequest = User::findOrFail($request->user_id)
                                  ->requests()
-                                 ->findOrFail($id)
-                                 ->update(
-                                     ['status' => 'accepted']
-                                 );
+                                 ->findOrFail($id);
             
             if ($friendRequest) {
+                $friendRequest->update([
+                    'status' => 'accepted'
+                ]);
+                $friendRequest->save();
+                
+                $friendRequest->friend()->firstOrCreate([
+                    'user_id' => $request->requestor_id,
+                    'friend_id' => $request->user_id,
+                    'user_email' => $request->requestor_email,
+                    'friend_email' => $request->user_email,
+                ]);
+
                 return ApiFormatter::createApi(201, true, 'Your friend`s request has been accepted.');
             } else {
                 return ApiFormatter::createApi(400, false, 'Failed to accept friend`s request.');
             }
-        } catch (Exception $error) {
-            return ApiFormatter::createApi(400, false, $error);
-        }
+        // } catch (Exception $error) {
+        //     return ApiFormatter::createApi(400, false, $error);
+        // }
     }
     
     /**

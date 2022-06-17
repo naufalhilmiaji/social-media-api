@@ -22,4 +22,9 @@ class FriendRequest extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    public function friend()
+    {
+        return $this->hasOne(Friend::class);
+    }
 }

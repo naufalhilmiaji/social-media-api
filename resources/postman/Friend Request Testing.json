@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "889ebd30-8f6f-4e21-a350-6d1bf5aa515c",
+		"name": "Friend Request",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19200618"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "requestor_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "user_email",
+							"value": "aditya@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "requestor_email",
+							"value": "hilmiaji@gmail.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/user/request",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"user",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Accept Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "requestor_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "user_email",
+							"value": "aditya@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "requestor_email",
+							"value": "rifqi@gmail.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/user/request/3/accept",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"user",
+						"request",
+						"3",
+						"accept"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reject Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "requestor_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "user_email",
+							"value": "hilmiaji@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "requestor_email",
+							"value": "naufal@gmail.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/user/request/12/reject",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"user",
+						"request",
+						"12",
+						"reject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request Lists",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_email",
+							"value": "naufal@gmail.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/user/request/lists",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"user",
+						"request",
+						"lists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mutual Friends",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"friends\": [\n        \"naufal@gmail.com\",\n        \"rifqi@gmail.com\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/user/friends/mutuals",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"user",
+						"friends",
+						"mutuals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Friends",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_email",
+							"value": "rifqi@gmail.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/user/friends",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"user",
+						"friends"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Block User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "requestor",
+							"value": "rifqi@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "block",
+							"value": "naufal@gmail.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/user/block",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"user",
+						"block"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

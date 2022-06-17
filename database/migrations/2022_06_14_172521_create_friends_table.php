@@ -15,8 +15,12 @@ return new class extends Migration
     {
         Schema::create('friends', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
-            $table->foreignId('friend_id')->references('id')->on('users')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')
+                  ->on('users')->constrained()->onDelete('cascade');
+            $table->foreignId('friend_id')->references('id')
+                  ->on('users')->constrained()->onDelete('cascade');
+            $table->foreignId('friend_request_id')->references('id')
+                  ->on('friend_requests')->constrained()->onDelete('cascade');
             $table->string('user_email');
             $table->string('friend_email');
             $table->timestamps();

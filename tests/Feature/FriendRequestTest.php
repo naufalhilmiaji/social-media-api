@@ -120,7 +120,7 @@ class FriendRequestTest extends TestCase
     {
         $formData = [
             'friends' => [
-                'hilmiaji@gmail.com',
+                'naufal@gmail.com',
                 'rifqi@gmail.com'
             ]
         ];
