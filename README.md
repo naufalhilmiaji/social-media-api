@@ -101,6 +101,9 @@ Use `sail` to run Laravel's artisan commands inside the Docker container, such a
 ## Manual Test
 For manual testing, I used `Postman` to test whether our application can run as expected.
 
+### Postman
+I have included example of manual testing in this [link](https://github.com/naufalhilmiaji/social-media-api/blob/main/resources/postman/Friend%20Request%20Testing.json)
+
 
 ## Automated Testing
 For automated testing, I used laravel artisan unit test feature. By using `Laravel Sail`, the program will run the test within docker containers. Do the following command to run the test:
