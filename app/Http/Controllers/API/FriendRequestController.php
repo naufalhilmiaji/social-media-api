@@ -28,16 +28,15 @@ class FriendRequestController extends Controller
             }
 
             $friendRequest = User::where('id', '=', $request->user_id)
-                                 ->where('blocked', '!=', $request->user_email)
-                                 ->orWhereNull('blocked')
+                                 ->whereNull('blocked')
                                  ->first();
 
             if ($friendRequest) {
                 $friendRequest->requests()
                               ->firstOrCreate([
-                                    'user_id' => $request->user_id,
+                                    'user_id' => $friendRequest->id,
                                     'requestor_id' => $request->requestor_id,
-                                    'user_email' => $request->user_email,
+                                    'user_email' => $friendRequest->email,
                                     'requestor_email' => $request->requestor_email,
                                 ], ['status' => 'pending',]);
 
@@ -180,7 +179,6 @@ class FriendRequestController extends Controller
                           ->pluck('friend_id');
 
             $data = User::whereIn('id', $subquery)
-                        ->whereNotIn('blocked', $request->friends)
                         ->pluck('email')
                         ->toArray();
                         

@@ -22,10 +22,10 @@ class FriendRequestTest extends TestCase
                           ->orWhere('email', '=', 'user@gmail.com')
                           ->whereNull('blocked')
                           ->get();
+                          
         $friend_request = FriendRequest::where('user_email', '=', 'dummy@gmail.com')
                                        ->where('requestor_email', '=', 'user@gmail.com')
                                        ->first();
-        
                                        
         if ($friend_request) {
             $friend_request->delete();
